@@ -1,0 +1,9 @@
+name = "Simulations"
+uuid = "b4844b7c-eb32-4452-b8ad-717b7af62c43"
+authors = ["Tommaso Stentella <stentell@molgen.mpg.de>"]
+version = "0.1.0"
+
+[deps]
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"

@@ -1,0 +1,8 @@
+name = "HistogramBinnings"
+uuid = "1de88cdd-8cc4-4439-8282-f9369eff9c21"
+authors = ["Peter Arndt <arndt@molgen.mpg.de>"]
+version = "0.1.2"
+
+[deps]
+StatsAPI = "82ae8749-77ed-4fe6-ae5f-f523153014b0"
+StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
