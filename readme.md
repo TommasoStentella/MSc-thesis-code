@@ -2,6 +2,7 @@
 
 Clone the repository and install Julia. Then `cd` to the directory and do
 ```
+julia --proj
 ] activate .
 instantiate
 ```
