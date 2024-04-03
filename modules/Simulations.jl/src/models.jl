@@ -44,10 +44,10 @@ function evolve_step!(model::DiscreteGensDiploid, pop::Population, pool::Chromos
         p1, p2 = sample(1:N, 2, replace = false)
         
         pid1, pid2 = randomswap(pop.alive[p1].ids[1], pop.alive[p1].ids[2])
-        pool.chromosomes[id1] = crossover(Ti(id1), pid1, pid2, L , pop.time, pop.rmap)
+        pool.chromosomes[id1] = crossover(Ti(id1), pid1, pid2, L , pop.time, model.ρ)
         
         pid1, pid2 = randomswap(pop.alive[p2].ids[1], pop.alive[p2].ids[2])
-        pool.chromosomes[id2] = crossover(Ti(id2), pid1, pid2, L , pop.time, pop.rmap)
+        pool.chromosomes[id2] = crossover(Ti(id2), pid1, pid2, L , pop.time, model.ρ)
     end
 
     pop.alive = map(1:Nnew) do i

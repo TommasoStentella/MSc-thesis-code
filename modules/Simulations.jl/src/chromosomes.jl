@@ -1,13 +1,9 @@
 
 
-function crossover(id::Ti, pid1::Ti, pid2::Ti, L::Tl, time::Tt, rmap::RecombinationMap{Tl}) where {Ti <: Integer, Tl <: Integer, Tt <: Real}
+function crossover(id::Ti, pid1::Ti, pid2::Ti, L::Tl, time::Tt, ρ::Float64) where {Ti <: Integer, Tl <: Integer, Tt <: Real}
     # breaks = n_breaks < L ? sample(1:L, n_breaks, replace = false) : collect(1:L)
-    # breaks = rand(1:L, n_breaks)
-    n_breaks = rand.(rmap.λ)
-    breaks = rand.(rmap.ran, n_breaks)
-    breaks_h = map_break.(breaks[1], low=rmap.low_h, lim=rmap.lim_h)
-    breaks_c = map_break.(breaks[2], low=rmap.low_c, lim=rmap.lim_c)
-    breaks = sort!(vcat(breaks_h, breaks_c))
+    n_breaks = rand(Poisson(ρ*L))
+    breaks = sort!(rand(1:L, n_breaks))
     @assert pid1 != pid2
     Chromosome(id, L, Tl.(breaks), pid1, pid2, time)
 end

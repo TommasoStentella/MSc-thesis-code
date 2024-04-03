@@ -50,3 +50,34 @@ function plot_demography(epochs, fits, ax; tail=1000, id="")
         ax.add_patch(err)
     end
 end
+
+function tmrca(τ, TN, ρ)
+    L = TN[1]
+    N = TN[2]
+    Ts = TN[3:2:end-1]
+    Ns = TN[4:2:end]
+    dt = 20*N + sum(Ts) - 1
+
+    popSize(g) = sum([[N * (g <= 20*N)];[Ns[i] * (g > sum(Ts[1:i-1])+20*N && g <= sum(Ts[1:i])+20*N) for i in 1:length(Ts)]])
+
+    function discrete_forward_coalescent(τ;N=N,dt=dt)
+        # assuming stationary initial condition
+        f(u) = 1 / (2 * popSize(u))
+        return f(dt-τ) * exp(-sum([f(dt-i) for i in 0:τ]))
+    end
+
+    tmrca = (1 + 2ρ*τ*L) * discrete_forward_coalescent(τ)
+
+    return tmrca
+end
+
+function setXrange(ax,inf,sup)
+    ax.set_xlim(inf-1,sup)
+    ticks = ax.get_xticks()
+    ticks = ticks[(ticks .>= inf).&&(ticks .<= sup)]
+    ax.set_xticks(ticks)
+    ticks = ax.get_xticks(minor=true)
+    ticks = ticks[(ticks .>= inf).&&(ticks .<= sup)]
+    ax.set_xticks(ticks,minor=true)
+    ax
+end
