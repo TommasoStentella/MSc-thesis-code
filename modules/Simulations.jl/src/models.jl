@@ -27,11 +27,9 @@ function evolve_step!(model::DiscreteGensDiploid, pop::Population, pool::Chromos
     Ti = typeof(pop.alive[1].ids[1])
     N = pop_size(pop)
     L = chromosome_length(pool)
-    # Tl = typeof(L)
     dt = 1
     pop.time += dt
-    # Tt = typeof(pop.time)
-
+    
     Nnew = offspring_size(pop)
 
     k = length(pool.chromosomes)

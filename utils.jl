@@ -51,6 +51,26 @@ function plot_demography(epochs, fits, ax; tail=1000, id="")
     end
 end
 
+function plot_input(TN, ax; tail=1000)
+    old_t = sum(TN[3:2:end-1]) + tail
+    nepochs = Int(length(TN)/2)
+    TN = TN[end:-1:2]
+
+    mean_size = []
+    for n in TN[1:2:end]
+        append!(mean_size, [n,n])
+    end
+
+    mean_epochs = [0.]
+    for i in 1:nepochs-1
+        t = sum(TN[2:2:end-1][1:i])
+        append!(mean_epochs, [t,t])
+    end
+    push!(mean_epochs, old_t)
+
+    ax.plot(mean_epochs, mean_size, linewidth=1, label="input demography", color = "black")
+end
+
 function tmrca(τ, TN, ρ)
     L = TN[1]
     N = TN[2]

@@ -25,8 +25,6 @@ end
 Base.show(io::IO, pool::ChromosomePool) = 
     print(io, "ChromosomePool(", length(pool.chromosomes), " chromosomes, ", chromosome_length(pool), " bp)")
 
-# ChromosomePool() = ChromosomePool{Int32, Int32, Float64}(Chromosome{Int32, Int32, Float64}[], nothing)
-
 
 function Base.show(io::IO, c::Chromosome) 
     print(io, "Chromosome(", c.id, ", ", c.length, " bp, ")
@@ -43,21 +41,11 @@ mutable struct Demography{Tn <: Function}
     population_size::Tn
 end
 
-# struct RecombinationMap{Tl <: Integer}
-#     λ::Vector{Poisson{Float32}}
-#     ran::Vector{StepRange{Tl,Tl}}
-#     low_h::Vector{Tl}
-#     lim_h::Vector{Tl}
-#     low_c::Vector{Tl}
-#     lim_c::Vector{Tl}
-# end
-
 mutable struct Population{Ti <: Integer, Tl <: Integer, Tt <: Real, Tn <: Function}
     ploidy::Ti
     alive::Vector{Individual{Ti}}
     time::Tt
     demography::Demography{Tn}
-    # rmap::RecombinationMap{Tl}
 end
 
 
@@ -80,11 +68,6 @@ end
 
 get_chromosomes_ids(pop::Population, indv::Integer) = 
     pop.alive[indv].ids
-
-# function map_break(breakpoint; low=[], lim=[])
-#     index = searchsortedfirst(lim, breakpoint)
-#     return low[index] + breakpoint - 1
-# end
 
 
 function simulate(TN::Vector{Int}, ρ=1e-8; indv=1)

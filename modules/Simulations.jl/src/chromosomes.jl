@@ -1,7 +1,6 @@
 
 
 function crossover(id::Ti, pid1::Ti, pid2::Ti, L::Tl, time::Tt, ρ::Float64) where {Ti <: Integer, Tl <: Integer, Tt <: Real}
-    # breaks = n_breaks < L ? sample(1:L, n_breaks, replace = false) : collect(1:L)
     n_breaks = rand(Poisson(ρ*L))
     breaks = sort!(rand(1:L, n_breaks))
     @assert pid1 != pid2
